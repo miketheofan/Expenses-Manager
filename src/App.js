@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import Expenses from './components/Expenses'
+import NewExpense from './components/NewExpense'
 
-function App() {
+import React, {useState} from 'react';
+
+const App = () => {
+
+    const [expenses, setExpenses] = useState(
+        [
+            {
+                id: 'e1',
+                title: "Car insurance",
+                amount: "294.5",
+                date: new Date(2021, 5, 12),
+            },
+            {
+                id: 'e2',
+                title: "New wooden desk",
+                amount: "320.5",
+                date: new Date(2022, 5, 12),
+            },
+            {
+                id: 'e3',
+                title: "Mac-Book pro",
+                amount: "500.5",
+                date: new Date(2021, 7, 12),
+            },
+        ]
+    );
+
+    const addExpenseHandler = (expense) => {
+        setExpenses((prevExpenses) => {
+            return [expense, ...expenses];
+        });
+    };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+          <NewExpense onAddExpense={addExpenseHandler}/>
+          <Expenses items={expenses}></Expenses>
     </div>
   );
 }
